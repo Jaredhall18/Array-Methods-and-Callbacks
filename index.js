@@ -46,9 +46,9 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(array, getFinalscb) {
+function getYears(array, getFinals) {
     const years = [];
-    getFinalscb(array).forEach(function(item){
+    getFinals(array).forEach(function(item){
         years.push(item.Year);
     })
     return years;
@@ -73,7 +73,7 @@ function getWinners(array, getFinalscb) {
    }) 
    return winners;
 }
-// console.log('task 4', getWinners(fifaData, getFinals));
+console.log('task 4', getWinners(fifaData, getFinals));
 //HINT
 // map over getfinals and return the winners using a conditional
 // don't worry about ties / dont wortty about over time. 
@@ -90,12 +90,26 @@ hint: the strings returned need to exactly match the string in step 4.
  */
 
 function getWinnersByYear(array, getYearscb, getWinnerscb) {
+   const theWinners = getWinnerscb(array, getFinals);
+   const years = getYearscb(array, getFinals);
+   const winnersByYear = theWinners.map(function(item, index){
+       return `In ${years[index]}, ${item} won the world cup!`;
+   });
+   return winnersByYear;
+   
+   
+//    = getWinnerscb(array).map(function(item, index){
+//     return `In ${getYearscb(array)}, ${getWinnerscb(array)} won the world cup!`;
+//    })
     
+//     return winnerArray;
 }
+console.log('task 5', getWinnersByYear(fifaData, getYears, getWinners));
 
 //HINT
 // store results in a var
-// use map with item and indexedDBmap over winners use index to refer to the year and use item to refer to the current value in winners
+// use map with item and index. over winners use index to refer to the year and use item to refer to the current value in winners
+// Map over winnerArray, use index to refer toyear, use item to refer to current value in winners. Return String.
 
 
 
