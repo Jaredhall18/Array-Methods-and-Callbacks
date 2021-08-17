@@ -63,10 +63,17 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
+function getWinners(array, getFinalscb) {
+   const winners = getFinalscb(array).map(function(item){
+        if(item ['Home Team Goals'] > item ['Away Team Goals']){
+          return item ['Home Team Name'];
+        }else {
+            return item ['Away Team Name'];
+        }  
+   }) 
+   return winners;
 }
-
+// console.log('task 4', getWinners(fifaData, getFinals));
 //HINT
 // map over getfinals and return the winners using a conditional
 // don't worry about ties / dont wortty about over time. 
@@ -82,8 +89,8 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
+function getWinnersByYear(array, getYearscb, getWinnerscb) {
+    
 }
 
 //HINT
@@ -102,10 +109,20 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(getFinalscb) {
+    const getAllGoals = getFinalscb.reduce(function(acc, item){
+        return acc + item['Home Team Goals'] + item['Away Team Goals']
+    },0)
+    // // console.log(getHomeGoals);
+    // const getAwayGoals = getFinalscb(array).reduce(function(acc, item){
+    //     return acc + item['Away Team Goals']
+    // },0)
+    // console.log(getAwayGoals);
+    const averageGoals = getAllGoals / getFinalscb.length;
+    return averageGoals.toFixed(2);
+    
 }
-
+console.log('task 6', getAverageGoals(getFinals(fifaData)));
 //HINT
 // if you want the 2nd decimal look up .toFixed(2);
 // Use .reduce - add up all the home team and away team goals and then divide by length of data set .filter
